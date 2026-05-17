@@ -1,263 +1,417 @@
 # 🎓 Synthetic Interview Dataset Generator
+
+<div align="center">
+
 ### Answer & Label Generation Module
 
-> **Internship Project** — This module is responsible for generating synthetic
-> answers and labels for interview questions. The question generation module
-> is handled separately and feeds into this pipeline.
+![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![Status](https://img.shields.io/badge/Status-Completed-success.svg)
+![Dataset](https://img.shields.io/badge/Dataset-100%2B%20Samples-orange.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
+> Internship Project — Synthetic Answer & Label Generation Pipeline  
+> Built for AI Evaluation, Testing & Validation Support
+
+</div>
 
 ---
 
-## 📋 Table of Contents
-1. [Project Overview](#project-overview)
-2. [File Structure](#file-structure)
-3. [How the System Works](#how-the-system-works)
-4. [How Labels Are Generated](#how-labels-are-generated)
-5. [Quick Start](#quick-start)
-6. [Input & Output Formats](#input--output-formats)
-7. [Future Integration with the Main Project](#future-integration-with-the-main-project)
-8. [Architecture Decisions](#architecture-decisions)
+# 📌 Project Overview
+
+This project is a modular **Synthetic Interview Dataset Generator** designed to create labeled interview answer datasets for testing and AI evaluation systems.
+
+The system accepts interview questions generated from an external module and produces:
+
+- ✅ Correct Answers
+- ✅ Partial Answers
+- ✅ Incorrect Answers
+- ✅ Automatic Labels
+- ✅ JSON Export
+- ✅ CSV Export
+- ✅ Validation Reports
+
+The generated dataset can be used for:
+
+- AI Interview Evaluation
+- Answer Quality Classification
+- Automated Grading Systems
+- Testing Pipelines
+- ML Training Data
 
 ---
 
-## Project Overview
+# ✨ Features
 
-This module takes a list of interview questions (JSON) and generates a labeled
-synthetic dataset with **three answer variants per question**:
-
-| Label       | Meaning                                                     |
-|-------------|-------------------------------------------------------------|
-| `correct`   | Accurate, concise, interview-quality answer                 |
-| `partial`   | Shows some understanding but lacks depth or has gaps        |
-| `incorrect` | Confidently wrong — mimics common misconceptions            |
-
-The dataset can be used to train or evaluate answer-quality classifiers,
-interview coaching tools, or automated grading systems.
+- 🎯 Generates 3 answer types per question
+- 🏷️ Automatic label assignment
+- 📊 Balanced dataset distribution
+- 🔍 Duplicate detection
+- 📁 JSON & CSV export support
+- ⚡ Modular architecture
+- 🔄 Easy future API integration
+- 🧪 Validation & reporting support
+- 📦 Production-style folder structure
 
 ---
 
-## File Structure
+# 🏗️ Project Architecture
 
+```text
+sample_questions.json
+        │
+        ▼
+   main.py
+        │
+        ▼
+answer_generator.py
+   ├── correct answers
+   ├── partial answers
+   └── incorrect answers
+        │
+        ▼
+validator.py
+   ├── duplicate detection
+   ├── schema validation
+   └── label validation
+        │
+        ▼
+exporter.py
+   ├── JSON export
+   └── CSV export
 ```
+
+---
+
+# 📂 File Structure
+
+```text
 synthetic_interview_dataset/
 │
-├── main.py                  # Orchestrator — run this to execute the pipeline
-├── answer_generator.py      # Core engine: generates correct/partial/incorrect answers
-├── validator.py             # Schema validation + duplicate detection
-├── exporter.py              # Writes output to JSON and/or CSV
+├── main.py
+├── answer_generator.py
+├── validator.py
+├── exporter.py
 │
-├── sample_questions.json    # 36 sample questions across 7 domains
-├── requirements.txt         # Python dependencies
-├── README.md                # This file
+├── sample_questions.json
+├── requirements.txt
+├── README.md
 │
-└── output/                  # Created automatically on first run
+└── output/
     ├── dataset_YYYYMMDD_HHMMSS.json
     └── dataset_YYYYMMDD_HHMMSS.csv
 ```
 
 ---
 
-## How the System Works
+# ⚙️ How the System Works
 
-```
+## Step 1 — Load Questions
+
+Questions are loaded from:
+
+```text
 sample_questions.json
-        │
-        ▼
-   main.py: _load_questions()
-        │
-        ▼
-   answer_generator.py: AnswerGenerator.generate_answers()
-     ├── _pick_answer(domain, "correct")
-     ├── _pick_answer(domain, "partial")
-     └── _pick_answer(domain, "incorrect")
-        │
-        ▼   (3 records per question)
-   validator.py: DatasetValidator.validate()
-     ├── Field schema check
-     └── Duplicate fingerprint check
-        │
-        ▼
-   exporter.py: DatasetExporter.export()
-     ├── output/dataset_*.json
-     └── output/dataset_*.csv
 ```
 
-**To reach 100+ records:** The pipeline automatically cycles the question list
-as many times as needed (each pass yields `questions × 3` records).
-With 36 sample questions → 1 pass = 108 records ✅
+Example:
+
+```json
+{
+  "question": "What is polymorphism in OOP?",
+  "domain": "OOP",
+  "difficulty": "easy"
+}
+```
 
 ---
 
-## How Labels Are Generated
+## Step 2 — Generate Synthetic Answers
 
-Labels are **assigned deterministically**, not predicted:
+For every question, the system generates:
 
-1. `generate_answers()` is called once per question.
-2. It calls `_pick_answer(domain, label)` **three times**, once per label.
-3. Each call selects a random answer from a pre-written template bank indexed
-   by `(domain, label)` — e.g., `ANSWER_BANK["OOP"]["correct"]`.
-4. The label is set **before** the text is retrieved — there is no ambiguity.
-
-This approach ensures:
-- ✅ 100% balanced label distribution (exactly 1/3 each)
-- ✅ No label leakage or guessing
-- ✅ Deterministic quality (templates are human-written)
-- ✅ Easy to replace with LLM generation later
+| Label | Description |
+|---|---|
+| `correct` | Accurate interview-style answer |
+| `partial` | Incomplete or vague answer |
+| `incorrect` | Wrong but realistic answer |
 
 ---
 
-## Quick Start
+## Step 3 — Assign Labels
 
-### Install Dependencies
+Labels are assigned deterministically:
+
+```python
+label = "correct"
+label = "partial"
+label = "incorrect"
+```
+
+This guarantees:
+
+- Balanced datasets
+- Zero label ambiguity
+- Consistent evaluation data
+
+---
+
+## Step 4 — Validation
+
+The validator checks:
+
+- Duplicate records
+- Missing fields
+- Invalid labels
+- Output structure
+- Dataset balance
+
+---
+
+## Step 5 — Export Dataset
+
+Final dataset is exported into:
+
+- 📄 JSON
+- 📊 CSV
+
+---
+
+# 🚀 Quick Start
+
+## 1️⃣ Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run with Defaults (36 questions → 108 records)
+---
+
+## 2️⃣ Run the Project
+
 ```bash
 python main.py
 ```
 
-### Run with Custom Options
+---
+
+## 3️⃣ Generate Custom Dataset Size
+
 ```bash
-# Generate at least 300 records
 python main.py --samples 300
-
-# Use a custom questions file
-python main.py --questions path/to/my_questions.json
-
-# Export JSON only
-python main.py --formats json
-
-# Custom output directory
-python main.py --output results/my_run
-```
-
-### Expected Output
-```
-18:42:01 [INFO] Loaded 36 unique questions.
-18:42:01 [INFO] Target: 100 samples → 1 pass(es) over 36 questions.
-18:42:01 [INFO] Pass 1/1 complete — 108 records so far.
-18:42:01 [INFO] Validation complete: 108 → 108 records (0 invalid, 0 duplicates).
-
-==================================================
-  DATASET VALIDATION REPORT
-==================================================
-  Total records input   : 108
-  Records removed       : 0 (invalid schema), 0 (duplicates)
-  Clean records output  : 108
-
-  Label distribution:
-    correct     :   36  (33.3%)  ███████████
-    partial     :   36  (33.3%)  ███████████
-    incorrect   :   36  (33.3%)  ███████████
-==================================================
-
-==================================================
-  EXPORT SUMMARY
-==================================================
-  Total records exported : 108
-  [JSON]  /path/to/output/dataset_20240101_184201.json  (42.3 KB)
-  [CSV ]  /path/to/output/dataset_20240101_184201.csv   (28.1 KB)
-==================================================
 ```
 
 ---
 
-## Input & Output Formats
+## 4️⃣ Export JSON Only
 
-### Input: `sample_questions.json`
+```bash
+python main.py --formats json
+```
+
+---
+
+# 📥 Input Format
+
+## `sample_questions.json`
+
 ```json
 [
   {
-    "question": "What is polymorphism in OOP?",
+    "question": "What is inheritance?",
     "domain": "OOP",
     "difficulty": "easy"
   }
 ]
 ```
 
-### Output: `dataset_*.json`
+---
+
+# 📤 Output Format
+
+## JSON Output
+
 ```json
 {
-  "metadata": {
-    "generated_at": "2024-01-01T18:42:01",
-    "total_records": 108,
-    "label_counts": { "correct": 36, "partial": 36, "incorrect": 36 },
-    "domains": ["Algorithms", "Databases", "Machine Learning", ...]
-  },
-  "records": [
-    {
-      "question":   "What is polymorphism in OOP?",
-      "answer":     "Polymorphism allows objects of different classes...",
-      "label":      "correct",
-      "domain":     "OOP",
-      "difficulty": "easy"
-    }
-  ]
+  "question": "What is inheritance?",
+  "answer": "Inheritance allows one class to acquire properties from another class.",
+  "label": "correct",
+  "domain": "OOP",
+  "difficulty": "easy"
 }
 ```
 
-### Output: `dataset_*.csv`
-```
+---
+
+## CSV Output
+
+```csv
 question,answer,label,domain,difficulty
-What is polymorphism in OOP?,Polymorphism allows objects...,correct,OOP,easy
+What is inheritance?,Inheritance allows...,correct,OOP,easy
 ```
 
 ---
 
-## Future Integration with the Main Project
+# 📊 Example Validation Report
 
-This module is designed as a **drop-in component**. Integration options:
+```text
+==================================================
+  DATASET VALIDATION REPORT
+==================================================
 
-### Option 1 — Direct Python Import (recommended)
-```python
-# In the main project's orchestration script:
-from synthetic_interview_dataset.main import run_pipeline
+Total Records Input   : 108
+Records Removed       : 0
+Clean Records Output  : 108
 
-# Pass your already-generated questions directly
-my_questions = question_module.generate()   # your existing module
-labeled_records = run_pipeline(
-    questions  = my_questions,
-    output_dir = "output/run_001",
-    min_samples = 500
-)
+Label Distribution:
+
+correct     : 36 (33.3%)
+partial     : 36 (33.3%)
+incorrect   : 36 (33.3%)
+
+==================================================
 ```
 
-### Option 2 — CLI / Subprocess
-```bash
-# Write questions to JSON, then call this module
-python answer_generator_module/main.py \
-    --questions generated_questions.json \
-    --samples 500 \
-    --output pipeline_output/
-```
+---
 
-### Option 3 — API Replacement (future)
-When scaling beyond template-based generation, replace the
-`_pick_answer()` method in `answer_generator.py` with an LLM API call:
+# 🧠 Label Generation Logic
+
+Labels are generated using a deterministic template-based system.
+
+Example:
 
 ```python
-# answer_generator.py — future version
-def _pick_answer(self, domain: str, label: str) -> str:
-    prompt = f"Generate a {label} answer for domain {domain}..."
-    return call_llm_api(prompt)   # OpenAI / Claude / Gemini
+generate_correct_answer()
+generate_partial_answer()
+generate_incorrect_answer()
 ```
 
-The rest of the pipeline — validator, exporter, main.py — **does not change**.
+This ensures:
+
+- Predictable quality
+- Balanced distributions
+- No random label mismatch
+- Easy scalability
 
 ---
 
-## Architecture Decisions
+# 🔮 Future Integration
 
-| Decision | Rationale |
-|----------|-----------|
-| Template banks per domain | Predictable quality, zero API cost, easy to extend |
-| Deterministic label assignment | No label errors, perfect balance guaranteed |
-| Fingerprint-based dedup | O(n) dedup without pandas dependency for core logic |
-| Timestamped output files | Prevents overwriting across multiple runs |
-| `run_pipeline()` function | Main project can import and call without subprocess |
-| Modular files | Each module has one responsibility — easy to test and replace |
+This module is designed as a reusable component.
+
+## Integration Flow
+
+```text
+Question Generator Module
+            │
+            ▼
+Synthetic Answer Generator
+            │
+            ▼
+Labeled Dataset Output
+            │
+            ▼
+AI Evaluation System
+```
 
 ---
 
-*Module developed as part of the Synthetic Interview Dataset Generator internship project.*
+## Future API Integration
+
+The template engine can later be replaced with:
+
+- OpenAI API
+- Claude API
+- Gemini API
+
+without changing the rest of the pipeline.
+
+Example:
+
+```python
+def _pick_answer():
+    return call_llm_api(prompt)
+```
+
+---
+
+# 🏛️ Architecture Decisions
+
+| Decision | Reason |
+|---|---|
+| Modular structure | Easy maintenance |
+| Deterministic labels | Prevents label mismatch |
+| Template-based answers | Fast & API-free |
+| Timestamped exports | Prevents overwriting |
+| Separate validator | Cleaner testing pipeline |
+| JSON + CSV export | Flexible integration |
+
+---
+
+# 🧪 Technologies Used
+
+- Python
+- pandas
+- json
+- csv
+- random
+- argparse
+- datetime
+
+---
+
+# 📈 Dataset Statistics
+
+| Metric | Value |
+|---|---|
+| Minimum Samples | 100+ |
+| Labels | 3 |
+| Export Formats | JSON, CSV |
+| Validation Support | Yes |
+| Duplicate Detection | Yes |
+
+---
+
+# 📌 Use Cases
+
+- AI Interview Platforms
+- Automated Evaluation Systems
+- ML Training Pipelines
+- Synthetic Data Generation
+- Testing & Validation
+
+---
+
+# 👨‍💻 Internship Task Scope
+
+This project was developed as part of an internship module focused on:
+
+- Synthetic data generation
+- Dataset validation
+- AI evaluation support
+- Testing infrastructure
+
+The question generation module already existed separately.
+
+---
+
+# 📚 References
+
+- Python Documentation
+- pandas Documentation
+- JSON Documentation
+- CSV Module Documentation
+- GitHub
+
+---
+
+# 📜 License
+
+This project is created for educational and internship purposes.
+
+---
+
+<div align="center">
+
+### ⭐ If you found this project useful, consider starring the repository!
+
+</div>
