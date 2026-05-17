@@ -1,0 +1,182 @@
+[
+  {
+    "question": "What is polymorphism in OOP?",
+    "domain": "OOP",
+    "difficulty": "easy"
+  },
+  {
+    "question": "Explain the difference between a class and an object.",
+    "domain": "OOP",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is encapsulation and why is it important?",
+    "domain": "OOP",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is inheritance in object-oriented programming?",
+    "domain": "OOP",
+    "difficulty": "easy"
+  },
+  {
+    "question": "Explain method overriding vs method overloading.",
+    "domain": "OOP",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is the SOLID principle?",
+    "domain": "OOP",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is the difference between abstract classes and interfaces?",
+    "domain": "OOP",
+    "difficulty": "medium"
+  },
+  {
+    "question": "Explain the concept of design patterns. Give an example.",
+    "domain": "OOP",
+    "difficulty": "hard"
+  },
+  {
+    "question": "What is the difference between a list and a tuple in Python?",
+    "domain": "Python",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What are Python decorators and how do they work?",
+    "domain": "Python",
+    "difficulty": "medium"
+  },
+  {
+    "question": "Explain Python's GIL (Global Interpreter Lock).",
+    "domain": "Python",
+    "difficulty": "hard"
+  },
+  {
+    "question": "What is a generator in Python?",
+    "domain": "Python",
+    "difficulty": "medium"
+  },
+  {
+    "question": "Explain list comprehension in Python with an example.",
+    "domain": "Python",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is the difference between deep copy and shallow copy?",
+    "domain": "Python",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What are *args and **kwargs in Python?",
+    "domain": "Python",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is the difference between a stack and a queue?",
+    "domain": "Data Structures",
+    "difficulty": "easy"
+  },
+  {
+    "question": "Explain how a hash map works.",
+    "domain": "Data Structures",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is a binary search tree and its properties?",
+    "domain": "Data Structures",
+    "difficulty": "medium"
+  },
+  {
+    "question": "Explain the difference between BFS and DFS.",
+    "domain": "Data Structures",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is a linked list and when would you use it over an array?",
+    "domain": "Data Structures",
+    "difficulty": "easy"
+  },
+  {
+    "question": "Explain what a heap data structure is.",
+    "domain": "Data Structures",
+    "difficulty": "hard"
+  },
+  {
+    "question": "What is the time complexity of QuickSort?",
+    "domain": "Algorithms",
+    "difficulty": "medium"
+  },
+  {
+    "question": "Explain binary search and its time complexity.",
+    "domain": "Algorithms",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is dynamic programming?",
+    "domain": "Algorithms",
+    "difficulty": "hard"
+  },
+  {
+    "question": "Explain the concept of recursion with an example.",
+    "domain": "Algorithms",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is the difference between SQL and NoSQL databases?",
+    "domain": "Databases",
+    "difficulty": "easy"
+  },
+  {
+    "question": "Explain database normalization.",
+    "domain": "Databases",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is an index in a database and why is it used?",
+    "domain": "Databases",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is a primary key vs a foreign key?",
+    "domain": "Databases",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is a REST API?",
+    "domain": "Web Development",
+    "difficulty": "easy"
+  },
+  {
+    "question": "Explain the difference between GET and POST HTTP methods.",
+    "domain": "Web Development",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is CORS and why does it exist?",
+    "domain": "Web Development",
+    "difficulty": "medium"
+  },
+  {
+    "question": "What is the difference between supervised and unsupervised learning?",
+    "domain": "Machine Learning",
+    "difficulty": "easy"
+  },
+  {
+    "question": "What is overfitting and how do you prevent it?",
+    "domain": "Machine Learning",
+    "difficulty": "medium"
+  },
+  {
+    "question": "Explain the concept of gradient descent.",
+    "domain": "Machine Learning",
+    "difficulty": "hard"
+  },
+  {
+    "question": "What is cross-validation in machine learning?",
+    "domain": "Machine Learning",
+    "difficulty": "medium"
+  }
+]
